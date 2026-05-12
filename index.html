@@ -1208,11 +1208,9 @@
         fields.forEach(function (f) { f.el.style.borderColor = f.ok ? '' : '#d96b6b'; });
         if (!valid) { errEl.style.display = 'block'; return; }
         errEl.style.display = 'none';
-        // Show thank-you
-        document.getElementById('form-body').style.display = 'none';
-        document.getElementById('form-thankyou').classList.add('active');
-        // Fire Meta Pixel Lead event
+        // Fire Meta Pixel Lead event then redirect
         if (typeof fbq === 'function') fbq('track', 'Lead');
+        window.location.href = 'thank-you.html';
       });
     })();
 

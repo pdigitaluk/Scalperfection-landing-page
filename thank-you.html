@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thank You — ScalPerfection</title>
+  <meta name="robots" content="noindex">
+
+  <!-- Meta Pixel -->
+  <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+    document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', 'PIXEL_ID');
+    fbq('track', 'PageView');
+    fbq('track', 'Lead');
+  </script>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=PIXEL_ID&ev=Lead&noscript=1"/></noscript>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --brand:      #2ab8de;
+      --brand-dark: #0e8fa6;
+      --brand-deep: #0a6478;
+      --font-display: 'Cormorant', Georgia, serif;
+      --font-ui:      'Inter', system-ui, sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body {
+      font-family: var(--font-ui);
+      background: linear-gradient(135deg, #0a6478 0%, #0e8fa6 35%, #2ab8de 65%, #1a9ec4 100%);
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      -webkit-font-smoothing: antialiased;
+      overflow: hidden; position: relative;
+    }
+
+    canvas {
+      position: fixed; inset: 0; width: 100%; height: 100%;
+      pointer-events: none; z-index: 0;
+    }
+
+    .card {
+      position: relative; z-index: 1;
+      background: rgba(255,255,255,0.18);
+      backdrop-filter: blur(32px); -webkit-backdrop-filter: blur(32px);
+      border: 1px solid rgba(255,255,255,0.38);
+      border-radius: 24px;
+      padding: 64px 56px;
+      max-width: 540px; width: 90%;
+      text-align: center;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.5);
+      animation: fadeUp 0.7s cubic-bezier(0.22,1,0.36,1) both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .icon {
+      width: 64px; height: 64px; border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.35);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 28px;
+    }
+    .icon svg {
+      width: 28px; height: 28px;
+      stroke: #fff; fill: none; stroke-width: 2.5;
+      stroke-linecap: round; stroke-linejoin: round;
+    }
+
+    .eyebrow {
+      font-family: var(--font-ui); font-size: 11px; font-weight: 500;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: rgba(255,255,255,0.7); margin-bottom: 14px;
+    }
+
+    h1 {
+      font-family: var(--font-display); font-weight: 300;
+      font-size: clamp(34px, 5vw, 48px); line-height: 1.12;
+      color: #fff; margin-bottom: 20px;
+    }
+    h1 em { font-style: italic; color: rgba(255,255,255,0.65); }
+
+    p {
+      font-size: 15px; font-weight: 300; color: rgba(255,255,255,0.82);
+      line-height: 1.8; margin-bottom: 36px;
+    }
+
+    .divider {
+      width: 48px; height: 1px;
+      background: rgba(255,255,255,0.3);
+      margin: 0 auto 32px;
+    }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #fff; color: var(--brand-deep);
+      font-family: var(--font-ui); font-size: 15px; font-weight: 500;
+      letter-spacing: 0.03em; padding: 14px 28px;
+      border-radius: 6px; text-decoration: none;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    .btn:hover {
+      background: rgba(255,255,255,0.92);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+    }
+
+    .logo {
+      position: fixed; top: 28px; left: 50%;
+      transform: translateX(-50%);
+      height: 52px; width: auto;
+      mix-blend-mode: screen;
+      z-index: 2;
+    }
+
+    @media (max-width: 600px) {
+      .card { padding: 44px 28px; }
+      .logo { height: 40px; top: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="canvas"></canvas>
+
+  <img src="assets/logo-white.png" alt="ScalPerfection" class="logo"
+       onerror="this.style.display='none'">
+
+  <div class="card">
+    <div class="icon">
+      <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+    <p class="eyebrow">Consultation request received</p>
+    <h1>We'll be in touch <em>very soon.</em></h1>
+    <div class="divider"></div>
+    <p>Thanks for reaching out. Grant or a member of the team will contact you within one working day to arrange your free, no-pressure consultation.</p>
+    <a href="index.html" class="btn">← Back to ScalPerfection</a>
+  </div>
+
+  <script>
+    (function () {
+      var canvas = document.getElementById('canvas');
+      var ctx = canvas.getContext('2d');
+      var orbs = [], dots = [];
+
+      function resize() {
+        canvas.width  = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
+        orbs = [
+          { x: canvas.width * 0.15, y: canvas.height * 0.25, r: canvas.width * 0.38, vx: 0.22, vy: 0.14, hue: 195, sat: 80, light: 55 },
+          { x: canvas.width * 0.75, y: canvas.height * 0.65, r: canvas.width * 0.30, vx: -0.18, vy: -0.10, hue: 185, sat: 70, light: 45 },
+          { x: canvas.width * 0.50, y: canvas.height * 0.80, r: canvas.width * 0.26, vx: 0.12, vy: -0.20, hue: 200, sat: 90, light: 60 },
+          { x: canvas.width * 0.85, y: canvas.height * 0.15, r: canvas.width * 0.22, vx: -0.14, vy: 0.18, hue: 175, sat: 65, light: 40 }
+        ];
+      }
+      window.addEventListener('resize', resize);
+
+      function initDots() {
+        dots = [];
+        for (var i = 0; i < 160; i++) {
+          var d = {
+            x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+            r: Math.random() * 1.8 + 0.5,
+            vx: (Math.random() - 0.5) * 0.2, vy: (Math.random() - 0.5) * 0.2,
+            alpha: Math.random() * 0.22 + 0.06,
+            pulse: Math.random() * Math.PI * 2, speed: Math.random() * 0.009 + 0.003
+          };
+          d.baseR = d.r; dots.push(d);
+        }
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        var W = canvas.width, H = canvas.height;
+
+        orbs.forEach(function (o) {
+          o.x += o.vx; o.y += o.vy;
+          if (o.x < -o.r) o.x = W + o.r; if (o.x > W + o.r) o.x = -o.r;
+          if (o.y < -o.r) o.y = H + o.r; if (o.y > H + o.r) o.y = -o.r;
+          var g = ctx.createRadialGradient(o.x, o.y, 0, o.x, o.y, o.r);
+          g.addColorStop(0,   'hsla(' + o.hue + ',' + o.sat + '%,' + o.light + '%,0.55)');
+          g.addColorStop(0.5, 'hsla(' + o.hue + ',' + o.sat + '%,' + o.light + '%,0.18)');
+          g.addColorStop(1,   'hsla(' + o.hue + ',' + o.sat + '%,' + o.light + '%,0)');
+          ctx.beginPath(); ctx.arc(o.x, o.y, o.r, 0, Math.PI * 2);
+          ctx.fillStyle = g; ctx.fill();
+        });
+
+        dots.forEach(function (d) {
+          d.pulse += d.speed;
+          var r = d.baseR + Math.sin(d.pulse) * 0.4;
+          d.x += d.vx; d.y += d.vy;
+          if (d.x < -4) d.x = W + 4; if (d.x > W + 4) d.x = -4;
+          if (d.y < -4) d.y = H + 4; if (d.y > H + 4) d.y = -4;
+          ctx.beginPath(); ctx.arc(d.x, d.y, r, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(255,255,255,' + d.alpha + ')';
+          ctx.fill();
+        });
+
+        requestAnimationFrame(draw);
+      }
+
+      resize(); initDots(); draw();
+    })();
+  </script>
+</body>
+</html>
