@@ -550,7 +550,7 @@
        SECTION 11 — FOOTER
     ══════════════════════════════════════════ */
     .footer {
-      background: #050f12;
+      background: linear-gradient(135deg, #0a6478 0%, #0e8fa6 35%, #2ab8de 65%, #1a9ec4 100%);
       padding: 32px 64px;
       display: flex; align-items: center; justify-content: space-between; gap: 24px;
       flex-wrap: wrap;
@@ -565,16 +565,18 @@
     .sticky-cta {
       display: none;
       position: fixed; bottom: 0; left: 0; right: 0; z-index: 200;
-      background: #fff;
-      border-top: 1px solid var(--border);
-      box-shadow: 0 -4px 24px rgba(0,0,0,0.08);
       padding: 12px 20px;
     }
     .sticky-cta.hidden { display: none !important; }
     .sticky-cta__btn {
-      width: 100%; background: var(--brand); color: #fff;
+      width: 100%;
+      background: rgba(42,184,222,0.35);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.45);
+      box-shadow: 0 8px 32px rgba(10,100,120,0.18), inset 0 1px 0 rgba(255,255,255,0.4);
+      color: #fff;
       font-family: var(--font-ui); font-size: 15px; font-weight: 500; letter-spacing: 0.03em;
-      padding: 15px; border-radius: var(--radius); border: none;
+      padding: 15px; border-radius: var(--radius);
     }
 
     /* ══════════════════════════════════════════
@@ -599,7 +601,7 @@
       .results-grid { grid-template-columns: repeat(2, 1fr); }
       .why-grid { grid-template-columns: repeat(2, 1fr); }
       .steps::before { display: none; }
-      .steps { flex-direction: column; gap: 40px; }
+      .steps { flex-direction: column; gap: 40px; align-items: center; }
       .step { padding: 0; max-width: 440px; margin: 0 auto; }
       .sticky-cta { display: block; }
       .container { padding: 0 32px; }
@@ -608,8 +610,30 @@
 
     @media (max-width: 600px) {
       .container, .empathy__inner, .results__inner, .whatsmp__inner,
-      .why__inner, .howitworks__inner, .faq__inner, .finalcta__inner { padding: 0 20px; }
+      .why__inner, .howitworks__inner, .faq__inner, .finalcta__inner { padding: 0 28px; }
       .nav__inner { padding: 0 20px; }
+      /* center section-level text on mobile — not inside cards/forms */
+      .eyebrow, .section-heading, .hero__eyebrow, .hero__sub, .hero__bullets,
+      .whatsmp__header, .why__header, .howitworks__header, .faq__header,
+      .finalcta__inner, .results__header, .results__footer,
+      .proof-item, .footer { text-align: center; }
+      .empathy__text p, .empathy__text h2 { text-align: center; }
+      .hero__brand { align-items: center; text-align: center; }
+      .hero__brand img { object-position: center; }
+      .hero__eyebrow, .hero__h1, .hero__sub { text-align: center; }
+      .hero__bullets { list-style: none; padding: 0; }
+      .hero__bullets li { justify-content: center; }
+      .empathy__divider { margin-left: auto; margin-right: auto; }
+      /* center all standalone buttons */
+      .btn { display: block; width: fit-content; margin-left: auto; margin-right: auto; text-align: center; }
+      .empathy__cta, .results__footer, .finalcta__inner { display: flex; flex-direction: column; align-items: center; }
+      /* center buttons inside cards */
+      .whatsmp-card, .step { display: flex; flex-direction: column; align-items: center; }
+      .why-card { display: flex; flex-direction: column; align-items: flex-start; }
+      /* carousel controls stay centered */
+      .carousel__controls { justify-content: center; }
+      /* form button rows stay full-width as designed */
+      .sf-btn-row { justify-content: center; }
       .hero { padding: 32px 20px 48px; }
       .hero__h1 { font-size: clamp(32px, 9vw, 46px); }
       .hero__sub { font-size: 14px; }
@@ -630,13 +654,31 @@
       .results__inner { padding: 0 20px; }
       .results__header { text-align: center; }
       .results__footer { flex-direction: column; gap: 16px; text-align: center; }
-      .carousel__slide { flex: 0 0 80%; }
+      .carousel__slide { flex: 0 0 68%; }
       .whatsmp { padding: 56px 0; }
       .whatsmp-grid { grid-template-columns: 1fr; }
       .why { padding: 56px 0; }
       .why-grid { grid-template-columns: 1fr; }
       .why-card { padding: 28px 24px; }
       .howitworks { padding: 56px 0; }
+      .howitworks__inner { padding: 0; }
+      .howitworks__header { padding: 0 20px; }
+      .steps {
+        display: flex; flex-direction: row; align-items: stretch;
+        overflow-x: auto; scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        gap: 0; padding: 0 20px 24px;
+        scrollbar-width: none;
+      }
+      .steps::-webkit-scrollbar { display: none; }
+      .steps::before { display: none; }
+      .step {
+        flex: 0 0 78vw; max-width: 300px;
+        scroll-snap-align: center;
+        background: rgba(255,255,255,0.10); border: 1px solid rgba(255,255,255,0.2);
+        border-radius: 16px; padding: 32px 24px; margin-right: 12px;
+      }
+      .step:last-child { margin-right: 0; }
       .faq { padding: 56px 0; }
       .faq-btn { font-size: 15px; padding: 18px 16px; }
       .faq-body { padding: 0 16px 18px; font-size: 14px; }
@@ -668,7 +710,7 @@
 
     <!-- RIGHT -->
     <div class="hero__form-panel">
-      <img src="assets/logo-white.png" alt="ScalPerfection" class="hero__mobile-logo" style="height:72px;width:auto;max-width:220px;object-fit:contain;mix-blend-mode:screen;">
+      <img src="assets/logo-white.png" alt="ScalPerfection" class="hero__mobile-logo" style="height:72px;width:auto;max-width:220px;object-fit:contain;mix-blend-mode:screen;display:block;margin:0 auto 28px;">
       <div class="form-card">
         <div id="form-body">
           <!-- Step header -->
