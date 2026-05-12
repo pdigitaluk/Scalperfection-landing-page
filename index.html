@@ -177,7 +177,7 @@
       padding: 44px 40px;
       box-shadow: 0 24px 64px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.55);
     }
-    #form-body { display: flex; flex-direction: column; width: 100%; }
+    #form-body { display: flex; flex-direction: column; width: 100%; overflow: visible; }
     #sf-step-1, #sf-step-2 { width: 100%; }
     .form-card__title {
       font-family: var(--font-display); font-size: 28px; font-weight: 300;
@@ -532,8 +532,11 @@
     /* ══════════════════════════════════════════
        SECTION 10 — FINAL CTA
     ══════════════════════════════════════════ */
-    .finalcta {
+    .cta-footer-wrap {
       background: linear-gradient(135deg, #0a6478 0%, #0e8fa6 40%, #2ab8de 100%);
+    }
+    .finalcta {
+      background: transparent;
       padding: 120px 0; text-align: center; position: relative; overflow: hidden;
     }
     .finalcta::before {
@@ -552,7 +555,8 @@
        SECTION 11 — FOOTER
     ══════════════════════════════════════════ */
     .footer {
-      background: linear-gradient(135deg, #0a6478 0%, #0e8fa6 35%, #2ab8de 65%, #1a9ec4 100%);
+      background: transparent;
+      border-top: 1px solid rgba(255,255,255,0.15);
       padding: 32px 64px;
       display: flex; align-items: center; justify-content: space-between; gap: 24px;
       flex-wrap: wrap;
@@ -646,7 +650,8 @@
       .form-card { padding: 24px 20px; }
       #sf-step-2 .sf-field { margin-bottom: 8px; }
       #sf-step-2 .sf-field label { margin-bottom: 3px; font-size: 10px; }
-      #sf-step-2 .sf-field input { padding: 9px 12px; font-size: 13px; }
+      #sf-step-2 .sf-field input { padding: 9px 12px; font-size: 16px; }
+      .sf-field input { font-size: 16px; }
       #sf-step-2 .sf-btn-row { margin-top: 10px; align-items: stretch; }
       #sf-step-2 .sf-btn-back, #sf-step-2 .sf-btn-submit { padding: 14px; }
       #sf-step-2 .form-note { margin-top: 8px; font-size: 11px; }
@@ -720,7 +725,7 @@
 
     <!-- RIGHT -->
     <div class="hero__form-panel">
-      <img src="assets/logo-white.png" alt="ScalPerfection" class="hero__mobile-logo" style="height:72px;width:auto;max-width:220px;object-fit:contain;mix-blend-mode:screen;display:block;margin:0 auto 28px;">
+      <img src="assets/logo-white.png" alt="ScalPerfection" class="hero__mobile-logo" style="height:72px;width:auto;max-width:220px;object-fit:contain;mix-blend-mode:screen;margin:0 auto 28px;">
       <div class="form-card">
         <div id="form-body">
           <!-- Step header -->
@@ -1075,7 +1080,8 @@
     </div>
   </section>
 
-  <!-- ══ FINAL CTA ══════════════════════════════════════ -->
+  <!-- ══ FINAL CTA + FOOTER ═════════════════════════════ -->
+  <div class="cta-footer-wrap">
   <section class="finalcta">
     <div class="finalcta__inner">
       <p class="eyebrow eyebrow--dark">Ready to take the next step?</p>
@@ -1092,6 +1098,7 @@
     <span class="footer__logo-text" style="display:none">ScalPerfection</span>
     <p class="footer__copy">ScalPerfection 2025 &nbsp;·&nbsp; scalperfection.co.uk &nbsp;·&nbsp; All rights reserved.</p>
   </footer>
+  </div>
 
   <!-- ══ MOBILE STICKY CTA ══════════════════════════════ -->
   <div class="sticky-cta" id="sticky-cta">
@@ -1153,9 +1160,10 @@
         });
       });
 
-      // Lock form-body to step 1's height — step 2 is made compact to match
+      // Lock form-body height on mobile only so card doesn't resize between steps
       var formBody = document.getElementById('form-body');
       (function () {
+        if (window.innerWidth > 1024) return;
         formBody.style.height = formBody.offsetHeight + 'px';
         formBody.style.overflow = 'hidden';
       })();
