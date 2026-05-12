@@ -177,6 +177,8 @@
       padding: 44px 40px;
       box-shadow: 0 24px 64px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.55);
     }
+    #form-body { display: flex; flex-direction: column; width: 100%; }
+    #sf-step-1, #sf-step-2 { width: 100%; }
     .form-card__title {
       font-family: var(--font-display); font-size: 28px; font-weight: 300;
       color: #fff; margin-bottom: 10px;
@@ -239,7 +241,7 @@
     .sf-field input.error { border-color: #f87b7b; }
     .sf-field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
-    .sf-btn-row { display: flex; gap: 8px; margin-top: 20px; }
+    .sf-btn-row { display: flex; gap: 8px; margin-top: 20px; align-items: stretch; }
     .sf-btn-next, .sf-btn-submit {
       flex: 1; background: #fff; color: var(--brand-deep);
       font-family: var(--font-ui); font-size: 15px; font-weight: 500; letter-spacing: 0.02em;
@@ -587,9 +589,10 @@
 
     @media (max-width: 1024px) {
       .hero { min-height: auto; padding: 48px 24px 56px; }
-      .hero__inner { display: flex; flex-direction: column; gap: 0; }
+      .hero__inner { display: flex; flex-direction: column; gap: 0; width: 100%; }
       /* form first on tablet/mobile */
-      .hero__form-panel { order: -1; }
+      .hero__form-panel { order: -1; width: 100%; }
+      .form-card { width: 100%; }
       .hero__brand     { order: 1; margin-top: 48px; }
       /* show mobile logo above form, hide desktop logo in brand column */
       .hero__mobile-logo { display: block; margin-bottom: 20px; }
@@ -634,12 +637,19 @@
       .carousel__controls { justify-content: center; }
       /* form button rows stay full-width as designed */
       .sf-btn-row { justify-content: center; }
-      .hero { padding: 32px 20px 48px; }
+      html, body { margin: 0; padding: 0; scroll-padding-top: 0; }
+      .hero { padding: 28px 20px 48px; margin-top: 0; }
       .hero__h1 { font-size: clamp(32px, 9vw, 46px); }
       .hero__sub { font-size: 14px; }
       .hero__bullets { font-size: 13px; }
       .hero__brand { margin-top: 40px; }
-      .form-card { padding: 28px 20px; }
+      .form-card { padding: 24px 20px; }
+      #sf-step-2 .sf-field { margin-bottom: 8px; }
+      #sf-step-2 .sf-field label { margin-bottom: 3px; font-size: 10px; }
+      #sf-step-2 .sf-field input { padding: 9px 12px; font-size: 13px; }
+      #sf-step-2 .sf-btn-row { margin-top: 10px; align-items: stretch; }
+      #sf-step-2 .sf-btn-back, #sf-step-2 .sf-btn-submit { padding: 14px; }
+      #sf-step-2 .form-note { margin-top: 8px; font-size: 11px; }
       .sf-service-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
       .sf-service-btn { padding: 14px 8px; font-size: 11px; }
       .sf-service-btn svg { width: 22px; height: 22px; }
@@ -757,7 +767,7 @@
               </button>
             </div>
             <p id="sf-err-1" style="color:#d96b6b;font-size:12px;margin-top:8px;display:none;">Please select your situation to continue.</p>
-            <div class="sf-btn-row" style="justify-content:flex-end;margin-top:20px;">
+            <div class="sf-btn-row" style="margin-top:20px;">
               <button type="button" class="sf-btn-next" id="sf-next">Continue →</button>
             </div>
           </div>
@@ -1142,6 +1152,13 @@
           document.getElementById('sf-err-1').style.display = 'none';
         });
       });
+
+      // Lock form-body to step 1's height — step 2 is made compact to match
+      var formBody = document.getElementById('form-body');
+      (function () {
+        formBody.style.height = formBody.offsetHeight + 'px';
+        formBody.style.overflow = 'hidden';
+      })();
 
       // Next button
       document.getElementById('sf-next').addEventListener('click', function () {
